@@ -1,9 +1,3 @@
-import { paraglideMiddleware } from './paraglide/server'
-import handler from '@tanstack/react-start/server-entry'
+import handler from "@tanstack/react-start/server-entry";
 
-// Server-side URL localization/redirects for Paraglide
-export default {
-  fetch(req: Request): Promise<Response> {
-    return paraglideMiddleware(req, () => handler.fetch(req))
-  },
-}
+export default handler;
