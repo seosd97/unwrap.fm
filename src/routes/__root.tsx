@@ -6,9 +6,10 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+
 import Header from "../components/header";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
-import appCss from "../styles.css?url";
+import "../styles/global.css";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -26,12 +27,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       },
       {
         title: "unwrap.fm",
-      },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
       },
     ],
   }),
