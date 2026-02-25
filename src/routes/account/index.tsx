@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import * as styles from "@/styles/page.css";
+import * as styles from "@/styles/app.css";
 
 export const Route = createFileRoute("/account/")({ component: Account });
 
 function Account() {
   return (
-    <div className={styles.container}>
-      <section className={styles.section}>
-        <div className={styles.content}>
-          <h1 className={styles.heading}>Account</h1>
-          <p className={styles.description}>Manage your account</p>
-        </div>
-      </section>
+    <div className={styles.contentCard}>
+      <div className={styles.contentCardHeader}>
+        <h2 className={styles.contentCardTitle}>Profile</h2>
+      </div>
+      <div className={styles.contentCardBody}>
+        <p>Manage your account settings and preferences.</p>
+      </div>
     </div>
   );
 }

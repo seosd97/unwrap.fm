@@ -1,18 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import * as styles from "@/styles/page.css";
+import * as styles from "@/styles/app.css";
 
 export const Route = createFileRoute("/")({ component: Home });
 
 function Home() {
   return (
-    <div className={styles.container}>
-      <section className={styles.section}>
-        <div className={styles.content}>
-          <h1 className={styles.heading}>unwrap.fm</h1>
-          <p className={styles.description}>Welcome to unwrap.fm</p>
-        </div>
-      </section>
+    <div className={styles.contentCard}>
+      <div className={styles.contentCardHeader}>
+        <h2 className={styles.contentCardTitle}>Home</h2>
+      </div>
+      <div className={styles.contentCardBody}>
+        <p>Welcome to unwrap.fm</p>
+      </div>
     </div>
   );
 }
