@@ -1,13 +1,15 @@
 node_modules
 .DS_Store
-dist
-dist-ssr
 *.local
-count.txt
 .env
-.nitro
-.tanstack
+
+# Build output
+build
+.react-router
+
+# Relay
+**/__generated__/**
+
+# Cloudflare
 .wrangler
-.output
-.vinxi
-todos.json
+.dev.vars

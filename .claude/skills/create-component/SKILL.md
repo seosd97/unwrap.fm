@@ -3,70 +3,161 @@ name: create-component
 description: Create a new React component following project conventions. Use when creating components, UI elements, or reusable modules.
 ---
 
-# Create Component
+# Create Component (Simple FSD)
 
-## Instructions
+## Step 1: Determine the Layer
 
-When creating a new component:
+| If the component... | Layer |
+|---------------------|-------|
+| Is business-agnostic (Button, Card, Input) | `shared/ui/` |
+| Belongs to a business domain (ArtistCard, TrackRow, LoginForm) | `features/{feature}/ui/` |
+| Composes features into a full page | `pages/{page}/ui/` |
+| Is app-wide layout (shell, nav, sidebar) | `layout/{slice}/ui/` |
 
-1. **Create folder structure** using kebab-case naming:
-   ```
-   src/components/[component-name]/
-   ├── index.tsx
-   └── [component-name].types.ts  # if types needed
-   ```
+## Step 2: Create the Slice Structure
 
-2. **Component template**:
-   ```tsx
-   export function ComponentName() {
-     return (
-       <div>
-         {/* content */}
-       </div>
-     )
-   }
-   ```
+### shared/ui component
 
-3. **With types**:
-   ```tsx
-   // index.tsx
-   import type { ComponentNameProps } from './component-name.types'
+```
+src/shared/ui/{component-name}/
+├── index.tsx                    # Component + export
+├── {component-name}.css.ts      # Styles (recipe for variants)
+└── {component-name}.test.tsx    # Tests (optional)
+```
 
-   export function ComponentName({ prop }: ComponentNameProps) {
-     return <div>{prop}</div>
-   }
-   ```
+### Feature component
 
-   ```tsx
-   // component-name.types.ts
-   export interface ComponentNameProps {
-     prop: string
-   }
-   ```
+```
+src/features/{slice-name}/
+├── ui/
+│   ├── {component-name}.tsx
+│   └── {component-name}.test.tsx  # Tests (optional)
+├── {slice-name}.css.ts            # Styles for all UI in this slice
+└── index.ts                       # Public API
+```
+
+## Step 3: Write the Component
+
+### shared/ui (with Recipe variants)
+
+```tsx
+// shared/ui/button/index.tsx
+import clsx from "clsx";
+import type { ButtonHTMLAttributes } from "react";
+
+import { buttonStyle, type ButtonVariants } from "./button.css";
+
+interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    ButtonVariants {
+  children: React.ReactNode;
+}
+
+export function Button({
+  variant,
+  size,
+  className,
+  children,
+  ...props
+}: ButtonProps) {
+  return (
+    <button
+      className={clsx(buttonStyle({ variant, size }), className)}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+```typescript
+// shared/ui/button/button.css.ts
+import { recipe, type RecipeVariants } from "@vanilla-extract/recipes";
+import { vars } from "@/shared/styles/theme.css";
+
+export const buttonStyle = recipe({
+  base: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: vars.borderRadius.lg,
+    fontWeight: vars.fontWeight.medium,
+    transition: vars.transition.colors,
+    cursor: "pointer",
+  },
+  variants: {
+    variant: {
+      primary: {
+        backgroundColor: vars.color.action.primary.bg,
+        color: vars.color.action.primary.text,
+      },
+      secondary: {
+        backgroundColor: vars.color.action.secondary.bg,
+        color: vars.color.action.secondary.text,
+        border: `1px solid ${vars.color.action.secondary.border}`,
+      },
+      ghost: {
+        backgroundColor: vars.color.action.ghost.bg,
+        color: vars.color.action.ghost.text,
+      },
+    },
+    size: {
+      sm: { height: "32px", padding: `0 ${vars.space[3]}`, fontSize: vars.fontSize.sm },
+      md: { height: "40px", padding: `0 ${vars.space[4]}`, fontSize: vars.fontSize.base },
+      lg: { height: "48px", padding: `0 ${vars.space[6]}`, fontSize: vars.fontSize.lg },
+    },
+  },
+  defaultVariants: {
+    variant: "secondary",
+    size: "md",
+  },
+});
+
+export type ButtonVariants = RecipeVariants<typeof buttonStyle>;
+```
+
+### Feature component
+
+```tsx
+// features/artist/ui/artist-card.tsx
+import { graphql, useFragment } from "react-relay";
+
+import * as styles from "../artist.css";
+
+import type { ArtistCard_artist$key } from "./__generated__/ArtistCard_artist.graphql";
+
+const ArtistCardFragment = graphql`
+  fragment ArtistCard_artist on Artist {
+    id
+    name
+    imageUrl
+  }
+`;
+
+export function ArtistCard({ artist }: { artist: ArtistCard_artist$key }) {
+  const data = useFragment(ArtistCardFragment, artist);
+  return <div className={styles.card}>{data.name}</div>;
+}
+```
+
+```typescript
+// features/artist/index.ts (Public API)
+export { ArtistCard } from "./ui/artist-card";
+```
 
 ## Naming Rules
 
 | Type | Convention | Example |
 |------|------------|---------|
-| Folder | kebab-case | `user-avatar/` |
-| Component | PascalCase | `UserAvatar` |
-| Types file | kebab-case | `user-avatar.types.ts` |
+| Slice folder | kebab-case | `top-nav/`, `artist-card/` |
+| Component name | PascalCase | `TopNav`, `ArtistCard` |
+| Component file | kebab-case.tsx | `top-nav.tsx`, `artist-card.tsx` |
+| Style file | slice-name.css.ts | `top-nav.css.ts` |
+| Props | PascalCase + Props | `TopNavProps` |
 
-## Example
+## Import Rules
 
-Creating `user-profile` component:
-
-```bash
-mkdir -p src/components/user-profile
-```
-
-```tsx
-// src/components/user-profile/index.tsx
-export function UserProfile() {
-  return (
-    <div className="user-profile">
-      <h2>User Profile</h2>
-    </div>
-  )
-}
-```
+- Always import from slice root `index.ts`
+- Never import from internal segments directly
+- Respect layer hierarchy (upper layers import lower layers only)
