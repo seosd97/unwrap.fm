@@ -1,7 +1,4 @@
 node_modules
-.DS_Store
-*.local
-.env
 
 # Build output
 build
@@ -14,3 +11,31 @@ dist
 # Cloudflare
 .wrangler
 .dev.vars
+
+# Environment
+.env
+.env.*
+!.env.example
+*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# Debug
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test
+coverage
+
+# Misc
+*.tsbuildinfo
