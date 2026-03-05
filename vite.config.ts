@@ -1,8 +1,8 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
-import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { reactRouter } from "@react-router/dev/vite";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
-import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import relay from "vite-plugin-relay";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
@@ -11,6 +11,7 @@ const config = defineConfig({
       projects: ["./tsconfig.json"],
     }),
     vanillaExtractPlugin(),
+    relay,
     {
       name: "remove-ssr-external",
       configResolved(config) {
@@ -20,8 +21,7 @@ const config = defineConfig({
       },
     },
     cloudflare({ viteEnvironment: { name: "ssr" } }),
-    tanstackStart(),
-    viteReact(),
+    reactRouter(),
   ],
 });
 
