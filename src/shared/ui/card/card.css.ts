@@ -1,14 +1,14 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@/shared/styles/theme.css";
+import { vars } from "@/shared/styles";
 
-export const card = style({
+export const root = style({
   backgroundColor: vars.color.bg.surface,
   borderRadius: vars.borderRadius.xl,
   border: `1px solid ${vars.color.border.subtle}`,
   overflow: "hidden",
 });
 
-export const cardHeader = style({
+export const header = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -16,12 +16,12 @@ export const cardHeader = style({
   borderBottom: `1px solid ${vars.color.border.subtle}`,
 });
 
-export const cardTitle = style({
+export const title = style({
   fontSize: vars.fontSize.lg,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.primary,
 });
 
-export const cardBody = style({
+export const body = style({
   padding: vars.space[3],
 });

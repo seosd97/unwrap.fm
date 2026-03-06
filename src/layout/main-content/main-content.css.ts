@@ -1,6 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { breakpoints } from "@/shared/styles/breakpoints";
-import { vars } from "@/shared/styles/theme.css";
+import { breakpoints, vars } from "@/shared/styles";
 
 export const main = style({
   display: "flex",

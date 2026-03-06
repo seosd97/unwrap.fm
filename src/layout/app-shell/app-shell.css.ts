@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { breakpoints } from "@/shared/styles/breakpoints";
+import { breakpoints } from "@/shared/styles";
 
 export const root = style({
   display: "grid",

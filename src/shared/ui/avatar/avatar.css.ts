@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { vars } from "@/shared/styles/theme.css";
+import { vars } from "@/shared/styles";
 
 export const root = style({
   width: "36px",

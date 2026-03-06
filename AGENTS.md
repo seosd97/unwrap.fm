@@ -109,12 +109,10 @@ src/
 │   ├── home/
 │   │   ├── ui/
 │   │   │   └── home-page.tsx     # RR7 route module (default export)
-│   │   ├── home.css.ts
 │   │   └── index.ts
 │   └── account/
 │       ├── ui/
 │       │   └── account-page.tsx
-│       ├── account.css.ts
 │       └── index.ts
 │
 ├── features/                     # [Layer] 도메인 슬라이스
@@ -130,6 +128,10 @@ src/
     │   ├── button/
     │   │   ├── index.tsx
     │   │   └── button.css.ts
+    │   ├── card/                 # 카드 컴포넌트
+    │   │   ├── index.tsx
+    │   │   ├── card.css.ts
+    │   │   └── index.ts
     │   ├── icon-button/
     │   ├── avatar/
     │   └── ...
@@ -140,14 +142,12 @@ src/
     │   └── schema.graphql
     ├── hooks/                    # 공유 훅
     │   └── use-mobile-drawer.ts
-    ├── styles/                   # 디자인 토큰, 글로벌 스타일, sprinkles
-    │   ├── global.css.ts         # CSS 리셋, body 스타일
-    │   ├── theme.css.ts
-    │   ├── sprinkles.css.ts
-    │   ├── breakpoints.ts
-    │   ├── layout.css.ts
-    │   ├── page.css.ts
-    │   └── index.ts
+├── styles/                   # 디자인 토큰, 글로벌 스타일, sprinkles
+│   ├── global.css.ts         # CSS 리셋, body 스타일
+│   ├── theme.css.ts          # 컬러, 스페이싱, 타이포그래피 토큰
+│   ├── sprinkles.css.ts      # 반응형 유틸리티
+│   ├── breakpoints.ts        # 브레이크포인트 정의
+│   └── index.ts              # Public API (vars, sprinkles, breakpoints)
     ├── types/                    # 공유 타입
     └── config/                   # 상수, 환경 설정
 
@@ -337,13 +337,17 @@ import { ArtistCard } from "@/features/artist/ui/artist-card";
 ### Import
 
 ```typescript
-// 토큰
-import { vars } from "@/shared/styles/theme.css";
-import { sprinkles } from "@/shared/styles/sprinkles.css";
-import { breakpoints } from "@/shared/styles/breakpoints";
+// 토큰 (Public API 사용)
+import { vars, sprinkles, breakpoints } from "@/shared/styles";
 
 // 컴포넌트 스타일 (같은 슬라이스 내)
 import * as styles from "../sidebar.css";
+```
+
+**주의**: `shared/styles` 내부 파일들은 상대 경로를 사용합니다:
+```typescript
+// shared/styles/global.css.ts (내부 파일)
+import { vars } from "./theme.css";
 ```
 
 ### Recipe (컴포넌트 variants)
@@ -366,11 +370,45 @@ export const buttonStyle = recipe({
 
 ### 클래스 조합
 
-`.tsx`에서는 `clsx`로 조합:
+className 조합은 template literal을 사용:
 
 ```tsx
-import clsx from "clsx";
-<div className={clsx(styles.base, isActive && styles.active, className)} />
+// 기본
+<div className={styles.root}>
+
+// 조건부 조합
+<div className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}>
+
+// 외부 className 허용
+<div className={className ? `${styles.root} ${className}` : styles.root}>
+```
+
+### Sprinkles (반응형 유틸리티)
+
+Sprinkles는 responsive 스타일을 위한 utility입니다:
+
+```tsx
+import { sprinkles } from "@/shared/styles";
+
+// 기본 사용법
+<div className={sprinkles({
+  display: "flex",
+  padding: "4",
+  gap: "3"
+})} />
+
+// 반응형 사용법
+<div className={sprinkles({
+  display: { base: "block", md: "flex" },
+  padding: { base: "4", md: "8" },
+  flexDirection: "column"
+})} />
+
+// 색상 사용
+<div className={sprinkles({
+  background: "surface",
+  color: "primary"
+})} />
 ```
 
 ---
