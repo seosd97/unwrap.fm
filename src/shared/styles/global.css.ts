@@ -50,12 +50,12 @@ globalStyle("h1, h2, h3, h4, h5, h6", {
   color: vars.color.text.primary,
 });
 
-globalStyle("h1", { fontSize: vars.fontSize["5xl"] });
-globalStyle("h2", { fontSize: vars.fontSize["4xl"] });
-globalStyle("h3", { fontSize: vars.fontSize["3xl"] });
-globalStyle("h4", { fontSize: vars.fontSize["2xl"] });
-globalStyle("h5", { fontSize: vars.fontSize.xl });
-globalStyle("h6", { fontSize: vars.fontSize.lg });
+globalStyle("h1", { fontSize: vars.fontSize.display200 });
+globalStyle("h2", { fontSize: vars.fontSize.display100 });
+globalStyle("h3", { fontSize: vars.fontSize.heading300 });
+globalStyle("h4", { fontSize: vars.fontSize.heading200 });
+globalStyle("h5", { fontSize: vars.fontSize.heading100 });
+globalStyle("h6", { fontSize: vars.fontSize.title200 });
 
 globalStyle("p", {
   lineHeight: vars.lineHeight.normal,
@@ -122,7 +122,7 @@ globalStyle(
   {
     outline: `2px solid ${vars.color.border.focusRing}`,
     outlineOffset: "2px",
-  }
+  },
 );
 
 globalStyle("input:disabled, textarea:disabled, select:disabled", {
@@ -197,7 +197,7 @@ globalStyle("th, td", {
 globalStyle("th", {
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.secondary,
-  fontSize: vars.fontSize.sm,
+  fontSize: vars.fontSize.body100,
   letterSpacing: vars.letterSpacing.wide,
   textTransform: "uppercase",
 });

@@ -1,4 +1,4 @@
-import { style, keyframes } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 import { vars } from "@/shared/styles/theme.css";
 import { breakpoints } from "@/shared/styles/breakpoints";
 
@@ -21,7 +21,7 @@ export const hero = style({
 });
 
 export const heroLabel = style({
-  fontSize: vars.fontSize.xs,
+  fontSize: vars.fontSize.caption100,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.tertiary,
   letterSpacing: vars.letterSpacing.widest,
@@ -29,15 +29,15 @@ export const heroLabel = style({
 });
 
 export const heroTitle = style({
-  fontSize: vars.fontSize["3xl"],
+  fontSize: vars.fontSize.heading300,
   fontWeight: vars.fontWeight.bold,
-  lineHeight: vars.lineHeight.tight,
+  lineHeight: vars.lineHeight.heading300,
   color: vars.color.text.primary,
   letterSpacing: vars.letterSpacing.tight,
   maxWidth: "600px",
   "@media": {
     [`(min-width: ${breakpoints.md})`]: {
-      fontSize: vars.fontSize["5xl"],
+      fontSize: vars.fontSize.display200,
     },
   },
 });
@@ -47,7 +47,7 @@ export const heroAccent = style({
 });
 
 export const heroDescription = style({
-  fontSize: vars.fontSize.lg,
+  fontSize: vars.fontSize.title200,
   lineHeight: vars.lineHeight.relaxed,
   color: vars.color.text.secondary,
   maxWidth: "480px",
@@ -63,7 +63,7 @@ export const heroCta = style({
   paddingRight: vars.space[6],
   backgroundColor: vars.color.action.primary.bg,
   color: vars.color.action.primary.text,
-  fontSize: vars.fontSize.base,
+  fontSize: vars.fontSize.body200,
   fontWeight: vars.fontWeight.semibold,
   borderRadius: vars.borderRadius.lg,
   border: "none",
@@ -103,20 +103,20 @@ export const statCard = style({
 });
 
 export const statNumber = style({
-  fontSize: vars.fontSize["2xl"],
+  fontSize: vars.fontSize.heading200,
   fontWeight: vars.fontWeight.bold,
-  lineHeight: vars.lineHeight.tight,
+  lineHeight: vars.lineHeight.heading200,
   color: vars.color.text.primary,
   fontVariantNumeric: "tabular-nums",
   "@media": {
     [`(min-width: ${breakpoints.md})`]: {
-      fontSize: vars.fontSize["4xl"],
+      fontSize: vars.fontSize.display100,
     },
   },
 });
 
 export const statLabel = style({
-  fontSize: vars.fontSize.sm,
+  fontSize: vars.fontSize.body100,
   color: vars.color.text.tertiary,
   fontWeight: vars.fontWeight.medium,
 });
@@ -130,7 +130,7 @@ export const featuresSection = style({
 });
 
 export const featuresSectionTitle = style({
-  fontSize: vars.fontSize.xs,
+  fontSize: vars.fontSize.caption100,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.tertiary,
   letterSpacing: vars.letterSpacing.widest,
@@ -171,13 +171,13 @@ export const featureIcon = style({
 });
 
 export const featureTitle = style({
-  fontSize: vars.fontSize.base,
+  fontSize: vars.fontSize.title100,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.primary,
 });
 
 export const featureDescription = style({
-  fontSize: vars.fontSize.sm,
-  lineHeight: vars.lineHeight.normal,
+  fontSize: vars.fontSize.body100,
+  lineHeight: vars.lineHeight.body100,
   color: vars.color.text.secondary,
 });
