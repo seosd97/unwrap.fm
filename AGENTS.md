@@ -383,6 +383,30 @@ className 조합은 template literal을 사용:
 <div className={className ? `${styles.root} ${className}` : styles.root}>
 ```
 
+### Typography (font shorthand)
+
+fontSize + lineHeight가 동일한 시맨틱 키로 페어링되어 있습니다.
+Sprinkles의 `font` shorthand로 한 번에 적용 가능:
+
+```tsx
+// font shorthand → fontSize + lineHeight 자동 적용
+sprinkles({ font: "heading200", fontWeight: "semibold", color: "primary" })
+
+// style() 내에서 직접 사용
+{ fontSize: vars.fontSize.heading200, lineHeight: vars.lineHeight.heading200 }
+```
+
+**Font Scale:**
+- `display200` (3rem) / `display100` (2.25rem) — 히어로, 대형 제목
+- `heading300` (1.875rem) / `heading200` (1.5rem) / `heading100` (1.25rem) — 섹션 제목
+- `title200` (1.125rem) / `title100` (1rem) — 카드 타이틀, 서브타이틀
+- `body200` (1rem) / `body100` (0.875rem) — 본문
+- `caption100` (0.75rem) — 캡션, 배지
+
+**fontWeight:** `regular` (400), `medium` (500), `semibold` (600), `bold` (700)
+**letterSpacing:** `tight`, `normal`, `wide`, `wider`, `widest` (독립 스케일)
+**lineHeight (standalone):** `tight` (1.25), `normal` (1.5), `relaxed` (1.75)
+
 ### Sprinkles (반응형 유틸리티)
 
 Sprinkles는 responsive 스타일을 위한 utility입니다:

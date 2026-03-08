@@ -2,6 +2,16 @@ import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
 import { breakpoints } from "./breakpoints";
 import { vars } from "./theme.css";
 
+// ============================================================
+// Font Keys (shared between fontSize / lineHeight)
+// ============================================================
+
+type FontKey = keyof typeof vars.fontSize;
+
+// ============================================================
+// Responsive Properties
+// ============================================================
+
 const responsiveProperties = defineProperties({
   conditions: {
     base: {},
@@ -118,11 +128,30 @@ const responsiveProperties = defineProperties({
   },
 });
 
-const colorProperties = defineProperties({
-  conditions: {
-    base: {},
+// ============================================================
+// Font Properties (fontSize + lineHeight shorthand)
+// ============================================================
+
+const fontProperties = defineProperties({
+  properties: {
+    font: (Object.keys(vars.fontSize) as FontKey[]).reduce(
+      (acc, key) => {
+        acc[key] = {
+          fontSize: vars.fontSize[key],
+          lineHeight: vars.lineHeight[key],
+        };
+        return acc;
+      },
+      {} as Record<FontKey, { fontSize: string; lineHeight: string }>,
+    ),
   },
-  defaultCondition: "base",
+});
+
+// ============================================================
+// Color Properties
+// ============================================================
+
+const colorProperties = defineProperties({
   properties: {
     color: {
       primary: vars.color.text.primary,
@@ -155,15 +184,13 @@ const colorProperties = defineProperties({
   },
 });
 
+// ============================================================
+// Static Properties
+// ============================================================
+
 const staticProperties = defineProperties({
-  conditions: {
-    base: {},
-  },
-  defaultCondition: "base",
   properties: {
-    fontSize: vars.fontSize,
     fontWeight: vars.fontWeight,
-    lineHeight: vars.lineHeight,
     letterSpacing: vars.letterSpacing,
     border: {
       none: "none",
@@ -209,10 +236,15 @@ const staticProperties = defineProperties({
   },
 });
 
+// ============================================================
+// Composed Sprinkles
+// ============================================================
+
 export const sprinkles = createSprinkles(
   responsiveProperties,
+  fontProperties,
   colorProperties,
-  staticProperties
+  staticProperties,
 );
 
 export type Sprinkles = Parameters<typeof sprinkles>[0];

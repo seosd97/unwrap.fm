@@ -10,7 +10,7 @@ export const root = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  fontSize: vars.fontSize.sm,
+  fontSize: vars.fontSize.body100,
   fontWeight: vars.fontWeight.medium,
   color: vars.color.text.secondary,
   overflow: "hidden",

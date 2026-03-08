@@ -43,7 +43,7 @@ export const right = style({
 });
 
 export const logo = style({
-  fontSize: vars.fontSize.xl,
+  fontSize: vars.fontSize.heading100,
   fontWeight: vars.fontWeight.bold,
   color: vars.color.text.primary,
   letterSpacing: vars.letterSpacing.tight,
@@ -76,7 +76,7 @@ export const searchInput = style({
   backgroundColor: "transparent",
   border: "none",
   outline: "none",
-  fontSize: vars.fontSize.sm,
+  fontSize: vars.fontSize.body100,
   color: vars.color.text.primary,
   "::placeholder": {
     color: vars.color.text.tertiary,

@@ -45,7 +45,7 @@ export const header = style({
 });
 
 export const logo = style({
-  fontSize: vars.fontSize.xl,
+  fontSize: vars.fontSize.heading100,
   fontWeight: vars.fontWeight.bold,
   color: vars.color.text.primary,
   letterSpacing: vars.letterSpacing.tight,

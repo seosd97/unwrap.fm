@@ -41,7 +41,7 @@ export const section = style({
 });
 
 export const sectionTitle = style({
-  fontSize: vars.fontSize.xs,
+  fontSize: vars.fontSize.caption100,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.tertiary,
   letterSpacing: vars.letterSpacing.wider,
@@ -84,7 +84,7 @@ export const navItemIcon = style({
 });
 
 export const navItemLabel = style({
-  fontSize: vars.fontSize.sm,
+  fontSize: vars.fontSize.body100,
   whiteSpace: "nowrap",
   overflow: "hidden",
   textOverflow: "ellipsis",

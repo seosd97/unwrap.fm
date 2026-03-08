@@ -103,9 +103,9 @@ export const buttonStyle = recipe({
       },
     },
     size: {
-      sm: { height: "32px", padding: `0 ${vars.space[3]}`, fontSize: vars.fontSize.sm },
-      md: { height: "40px", padding: `0 ${vars.space[4]}`, fontSize: vars.fontSize.base },
-      lg: { height: "48px", padding: `0 ${vars.space[6]}`, fontSize: vars.fontSize.lg },
+      sm: { height: "32px", padding: `0 ${vars.space[3]}`, fontSize: vars.fontSize.body100 },
+      md: { height: "40px", padding: `0 ${vars.space[4]}`, fontSize: vars.fontSize.body200 },
+      lg: { height: "48px", padding: `0 ${vars.space[6]}`, fontSize: vars.fontSize.title200 },
     },
   },
   defaultVariants: {

@@ -17,7 +17,7 @@ export const header = style({
 });
 
 export const title = style({
-  fontSize: vars.fontSize.lg,
+  fontSize: vars.fontSize.title200,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.primary,
 });

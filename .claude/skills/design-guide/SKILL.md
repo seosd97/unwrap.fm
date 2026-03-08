@@ -306,17 +306,40 @@ Chill            Energetic         Melancholy       Ambient
 
 ### 6.2 Typography
 
+**Font Scale (시맨틱 카테고리 + 숫자 스케일):**
+
+fontSize와 lineHeight는 동일한 키로 페어링되어 있습니다. Sprinkles의 `font` shorthand로 한 번에 적용 가능합니다.
+
+| Token | fontSize | lineHeight | 용도 |
+|-------|----------|------------|------|
+| `display200` | 3rem (48px) | 1.2 | 히어로 제목 |
+| `display100` | 2.25rem (36px) | 1.25 | 대형 제목 |
+| `heading300` | 1.875rem (30px) | 1.25 | 페이지 제목 |
+| `heading200` | 1.5rem (24px) | 1.3 | 섹션 제목 |
+| `heading100` | 1.25rem (20px) | 1.3 | 소제목, 컴포넌트 타이틀 |
+| `title200` | 1.125rem (18px) | 1.4 | 카드 타이틀, 강조 본문 |
+| `title100` | 1rem (16px) | 1.4 | 서브타이틀 |
+| `body200` | 1rem (16px) | 1.5 | 본문 기본 |
+| `body100` | 0.875rem (14px) | 1.5 | 보조 텍스트, 레이블 |
+| `caption100` | 0.75rem (12px) | 1.5 | 캡션, 배지, label bar |
+
+**Sprinkles font shorthand 사용법:**
+
+```tsx
+// font shorthand → fontSize + lineHeight 자동 적용
+sprinkles({ font: "heading200", fontWeight: "semibold", color: "primary" })
+
+// style() 내에서 직접 사용
+{ fontSize: vars.fontSize.heading200, lineHeight: vars.lineHeight.heading200 }
+```
+
+**standalone lineHeight (font 프리셋과 별도로 사용 가능):**
+
 | Token | Value | 용도 |
 |-------|-------|------|
-| `fontSize.xs` | 0.75rem (12px) | 캡션, 배지, label bar |
-| `fontSize.sm` | 0.875rem (14px) | 보조 텍스트, 레이블 |
-| `fontSize.base` | 1rem (16px) | 본문 기본 |
-| `fontSize.lg` | 1.125rem (18px) | 강조 본문 |
-| `fontSize.xl` | 1.25rem (20px) | 소제목, 컴포넌트 타이틀 |
-| `fontSize.2xl` | 1.5rem (24px) | 섹션 제목 |
-| `fontSize.3xl` | 1.875rem (30px) | 페이지 제목 |
-| `fontSize.4xl` | 2.25rem (36px) | 대형 제목 |
-| `fontSize.5xl` | 3rem (48px) | 히어로 제목 |
+| `lineHeight.tight` | 1.25 | 제목, 데이터 수치, label bar |
+| `lineHeight.normal` | 1.5 | 본문 기본 |
+| `lineHeight.relaxed` | 1.75 | 긴 텍스트, 설명문 |
 
 **Typography 규칙:**
 - Body text: 높은 가독성의 산세리프, "시끄러운" 개성 피함
@@ -326,16 +349,10 @@ Chill            Energetic         Melancholy       Ambient
 
 | Token | Value | 용도 |
 |-------|-------|------|
-| `fontWeight.normal` | 400 | 본문 |
+| `fontWeight.regular` | 400 | 본문 |
 | `fontWeight.medium` | 500 | 강조 본문, 네비게이션 |
 | `fontWeight.semibold` | 600 | 소제목, 버튼 |
 | `fontWeight.bold` | 700 | 제목, 데이터 수치 |
-
-| Token | Value | 용도 |
-|-------|-------|------|
-| `lineHeight.tight` | 1.25 | 제목, 데이터 수치, label bar |
-| `lineHeight.normal` | 1.5 | 본문 기본 |
-| `lineHeight.relaxed` | 1.75 | 긴 텍스트, 설명문 |
 
 ### 6.3 Border Radius
 
@@ -475,9 +492,9 @@ vars.palette.danger[400]      // 차트 위험 표시
 
 // Design tokens
 vars.space[4]                 // 1rem 간격
-vars.fontSize.lg              // 18px
+vars.fontSize.title200        // 18px
 vars.fontWeight.bold          // 700
-vars.lineHeight.normal        // 1.5
+vars.lineHeight.body200       // 1.5 (paired) or vars.lineHeight.normal (standalone)
 vars.borderRadius.lg          // 8px
 vars.shadow.md                // 기본 shadow
 vars.transition.colors        // 150ms 색상 전환
@@ -536,7 +553,7 @@ export const labelBar = style({
   backgroundColor: vars.color.bg.surfaceElevated,
   borderBottom: `1px solid ${vars.color.border.subtle}`,
   padding: `${vars.space[2]} ${vars.space[4]}`,
-  fontSize: vars.fontSize.xs,
+  fontSize: vars.fontSize.caption100,
   fontWeight: vars.fontWeight.semibold,
   color: vars.color.text.tertiary,
   letterSpacing: "0.05em",

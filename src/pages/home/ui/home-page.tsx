@@ -43,7 +43,7 @@ export default function HomePage() {
           Deep dive into your streaming data. See your top artists, tracks, and
           how your taste evolves — all in one place.
         </p>
-        <button className={s.heroCta}>
+        <button type="button" className={s.heroCta}>
           <Music size={18} />
           Connect Your Account
         </button>
